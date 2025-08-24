@@ -23,10 +23,10 @@ jobs:
         run: npm ci
 
       - name: Build Angular
-        run: npm run build -- --configuration production --base-href "/{{ env.REPOSITORY_NAME }}/"
+        run: npm run build -- --configuration production --base-href "/${{ env.REPOSITORY_NAME }}/"
 
       - name: Copiar index.html a 404.html
-        run: cp ./dist/{{ env.PROJECT_NAME }}/browser/index.html ./dist/{{ env.PROJECT_NAME }}/browser/404.html        
+        run: cp ./dist/${{ env.PROJECT_NAME }}/browser/index.html ./dist/${{ env.PROJECT_NAME }}/browser/404.html        
 
       - name: Deploy a GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
