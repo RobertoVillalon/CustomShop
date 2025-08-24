@@ -6,7 +6,7 @@ permissions:
   contents: write
 
 env:
-  PROJECT_NAME: "09-custom-shop"
+  PROJECT_NAME: "custom-shop"
   REPOSITORY_NAME: "CustomShop"
 
 jobs:
