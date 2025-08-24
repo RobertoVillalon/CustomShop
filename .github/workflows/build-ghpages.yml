@@ -1,0 +1,35 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+
+env:
+  PROJECT_NAME: "09-custom-shop"
+  REPOSITORY_NAME: "CustomShop"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build Angular
+        run: npm run build -- --configuration production --base-href "/{{ env.REPOSITORY_NAME }}/"
+
+      - name: Copiar index.html a 404.html
+        run: cp ./dist/{{ env.PROJECT_NAME }}/browser/index.html ./dist/{{ env.PROJECT_NAME }}/browser/404.html        
+
+      - name: Deploy a GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/${{ env.PROJECT_NAME }}/browser
