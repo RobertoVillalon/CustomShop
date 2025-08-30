@@ -1,1 +1,75 @@
-<p>product-page works!</p>,
+<div class="mx-auto p-2">
+    @if( productsResource.hasValue();){
+        <div class="container mx-auto">
+            <div class="flex w-full flex-col md:flex-row gap-6">
+                <!-- <div class="flex justify-center">
+                    <img
+                        [src]="productsResource.value().images | productImage"
+                        alt="{{ productsResource.value().title }}"
+                        class="rounded-xl shadow-md object-cover"
+                    />
+                </div> -->
+                <product-carousel [productImages]="productsResource.value().images" />
+                <!-- Información del productsResource.value()o -->
+                <div>
+                <h1 class="text-3xl font-bold mb-4">{{ productsResource.value().title }}</h1>
+                <p class="mb-6">{{ productsResource.value().description }}</p>
+
+                <!-- Precio y Stock -->
+                <div class="stats shadow w-full mb-6">
+                    <div class="stat">
+                    <div class="stat-title">Precio</div>
+                    <div class="stat-value text-primary">${{ productsResource.value().price }}</div>
+                    </div>
+                    <div class="stat">
+                    <div class="stat-title">Stock</div>
+                    <div
+                        class="stat-value"
+                        [class.text-success]="productsResource.value().stock > 0"
+                        [class.text-error]="productsResource.value().stock === 0"
+                    >
+                        {{ productsResource.value().stock > 0 ? productsResource.value().stock : 'Agotado' }}
+                    </div>
+                    </div>
+                </div>
+
+                <!-- Tallas -->
+                <div class="mb-4">
+                    <h3 class="font-semibold">Tallas disponibles:</h3>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                    @for (size of productsResource.value().sizes; track size) {
+                        <div class="badge badge-outline">{{ size }}</div>
+                    }
+                    </div>
+                </div>
+
+                <!-- Categorías -->
+                <div class="mb-4">
+                    <h3 class="font-semibold">Categorías:</h3>
+                    <div class="flex flex-wrap gap-2 mt-2">
+                    @for (tag of productsResource.value().tags; track tag) {
+                        <div class="badge badge-secondary">{{ tag }}</div>
+                    }
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <!-- Usuario -->
+                <div class="mb-6">
+                    <h3 class="font-semibold">Publicado por:</h3>
+                    <p>{{ productsResource.value().user.fullName }} ({{ productsResource.value().user.email }})</p>
+                    <p class="text-sm text-gray-500">
+                    Rol: {{ productsResource.value().user.roles.join(', ') }}
+                    </p>
+                </div>
+
+                <!-- Acción -->
+                <button class="btn btn-primary w-full">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    }@else {
+        <p>Loading...</p>
+    }
+</div> 
