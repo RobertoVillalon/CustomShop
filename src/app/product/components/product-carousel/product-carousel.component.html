@@ -1,7 +1,7 @@
-<div class="carousel rounded-box w-128 h-128">
+<div class="carousel carousel-center rounded-box w-128 h-128">
     @for(image of productImages(); track image) {
         <div class="carousel-item w-full">
-            <img class="w-full" [src]="image | productImage" alt="Product" />
+            <img class="" [src]="image | productImage" alt="Product" />
         </div>  
     }
 </div>
